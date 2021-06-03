@@ -59,15 +59,15 @@ class SimpleTextDisplay:
     SKY = (0, 180, 255)
 
     def __init__(  # pylint: disable=too-many-arguments
-            self,
-            title=None,
-            title_color=0xFFFFFF,
-            title_scale=1,
-            title_length=80,
-            text_scale=1,
-            font=None,
-            colors=None,
-            display=None,
+        self,
+        title=None,
+        title_color=0xFFFFFF,
+        title_scale=1,
+        title_length=80,
+        text_scale=1,
+        font=None,
+        colors=None,
+        display=None,
     ):
         """Display lines of text on a display using displayio. Lines of text are created in order as
         shown in the example below. If you skip a number, the line will be shown blank on the
@@ -158,8 +158,10 @@ class SimpleTextDisplay:
         if title:
             # Fail gracefully if title is longer than title_length characters. Defaults to 80.
             if len(title) > title_length:
-                raise ValueError("Title character count must be less than or equal to title_length."
-                                 " Default is 80.")
+                raise ValueError(
+                    "Title character count must be less than or equal to title_length."
+                    " Default is 80."
+                )
 
             title = label.Label(
                 self._font,

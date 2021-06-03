@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2021 Kattni Rembor for Adafruit Industries
 #
 # SPDX-License-Identifier: Unlicense
+# pylint: disable=no-member
 """Display the microcontroller CPU temperature in C and F on a display."""
 import microcontroller
 from adafruit_simple_text_display import SimpleTextDisplay
