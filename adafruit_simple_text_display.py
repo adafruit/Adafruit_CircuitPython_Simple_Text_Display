@@ -61,7 +61,7 @@ class SimpleTextDisplay:
     def __init__(  # pylint: disable=too-many-arguments
         self,
         title=None,
-        title_color=0xFFFFFF,
+        title_color=(255, 255, 255),
         title_scale=1,
         title_length=80,
         text_scale=1,
@@ -191,7 +191,7 @@ class SimpleTextDisplay:
                 )
         return self._lines[item]
 
-    def add_text_line(self, color=0xFFFFFF):
+    def add_text_line(self, color=(255, 255, 255)):
         """Adds a line on the display of the specified color and returns the label object."""
         text_label = self._label.Label(self._font, text="", color=color)
         text_label.x = 0
