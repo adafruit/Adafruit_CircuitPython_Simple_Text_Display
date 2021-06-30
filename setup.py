@@ -28,7 +28,7 @@ setup(
     use_scm_version=True,
     setup_requires=["setuptools_scm"],
     description="A helper library for displaying lines of text on a microcontroller with a built-in"
-                " display, or externally connected display.",
+    " display, or externally connected display.",
     long_description=long_description,
     long_description_content_type="text/x-rst",
     # The project's main homepage.
