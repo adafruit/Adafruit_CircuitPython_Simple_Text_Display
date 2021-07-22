@@ -166,7 +166,6 @@ class SimpleTextDisplay:
             title = label.Label(
                 self._font,
                 text=title,
-                max_glyphs=title_length,
                 color=title_color,
                 scale=title_scale,
             )
