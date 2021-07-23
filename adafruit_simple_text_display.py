@@ -56,17 +56,18 @@ class SimpleTextDisplay:
     VIOLET = (255, 0, 255)
     SKY = (0, 180, 255)
 
-    def __init__(  # pylint: disable=too-many-arguments
+    def __init__(
         self,
         title=None,
         title_color=(255, 255, 255),
         title_scale: int = 1,
-        title_length: int = 80,
+        title_length: int = 0,  # Ignored - will be removed in a future version
         text_scale: int = 1,
         font=None,
         colors=None,
         display=None,
     ):
+        # pylint: disable=too-many-arguments, unused-argument
         """Display lines of text on a display using displayio. Lines of text are created in order as
         shown in the example below. If you skip a number, the line will be shown blank on the
         display, e.g. if you include ``[0]`` and ``[2]``, the second line on the display will be
@@ -85,8 +86,7 @@ class SimpleTextDisplay:
             title is provided. Defaults to white (255, 255, 255).
         :param int title_scale: Scale the size of the title. Not necessary if no title is provided.
             Defaults to 1.
-        :param int title_length: The maximum number of characters allowed in the title. Only
-            necessary if the title is longer than the default 80 characters. Defaults to 80.
+        :param int title_length: DEPRECATED/IGNORED - This will be removed in a future version.
         :param int text_scale: Scale the size of the data lines. Scales the title as well.
             Defaults to 1.
         :param ~fontio.BuiltinFont,~adafruit_bitmap_font.bdf.BDF,~adafruit_bitmap_font.pcf.PCF font:
@@ -141,56 +141,55 @@ class SimpleTextDisplay:
             )
 
         self._colors = colors
-        self._label = label
         if display is None:
             display = board.DISPLAY
         self._display = display
         self._font = font if font else terminalio.FONT
+        self._text_scale = text_scale
 
-        self.text_group = displayio.Group(scale=text_scale)
+        self.text_group = displayio.Group()
 
         if title:
-            # Fail gracefully if title is longer than title_length characters. Defaults to 80.
-            if len(title) > title_length:
-                raise ValueError(
-                    "Title character count must be less than or equal to title_length."
-                    " Default is 80."
-                )
-
-            title = label.Label(
+            title_label = label.Label(
                 self._font,
                 text=title,
-                max_glyphs=title_length,
                 color=title_color,
                 scale=title_scale,
+                anchor_point=(0, 0),
+                anchored_position=(0, 0),
             )
-            title.x = 0
-            title.y = 8
-            self._y = title.y + 18
+            self._next_y = title_label.bounding_box[3] * title_scale
 
-            self.text_group.append(title)
+            self.text_group.append(title_label)
         else:
-            self._y = 3
+            self._next_y = 0
 
         self._lines = []
-        for num in range(1):
-            self._lines.append(self.add_text_line(color=colors[num % len(colors)]))
+        # Add first line
+        self._lines.append(self.add_text_line(color=colors[0]))
 
     def __getitem__(self, item):
         """Fetch the Nth text line Group"""
         if len(self._lines) - 1 < item:
-            for _ in range(item - (len(self._lines) - 1)):
+            for i in range(len(self._lines), item + 1):
                 self._lines.append(
-                    self.add_text_line(color=self._colors[item % len(self._colors)])
+                    self.add_text_line(color=self._colors[i % len(self._colors)])
                 )
         return self._lines[item]
 
     def add_text_line(self, color=(255, 255, 255)):
         """Adds a line on the display of the specified color and returns the label object."""
-        text_label = self._label.Label(self._font, text="", color=color)
-        text_label.x = 0
-        text_label.y = self._y
-        self._y = text_label.y + 13
+
+        text_label = label.Label(
+            self._font,
+            text="Myj",  # Dummy value to allow bounding_box to calculate
+            color=color,
+            scale=self._text_scale,
+            anchor_point=(0, 0),
+            anchored_position=(0, self._next_y),
+        )
+        self._next_y += text_label.bounding_box[3] * text_label.scale
+        text_label.text = ""  # Erase the dummy value after using bounding_box
         self.text_group.append(text_label)
 
         return text_label
