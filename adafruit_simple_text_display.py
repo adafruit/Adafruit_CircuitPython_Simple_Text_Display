@@ -100,7 +100,7 @@ class SimpleTextDisplay:
             setup, it would alternate white and red. You can also use the colors built into the
             library. For example, if you import the library as
             ``from adafruit_simple_text_display import SimpleTextDisplay``, you can indicate the
-            colors as follows: ``colors=(SimpleDisplayText.WHITE, SimpleDisplayText.RED)``.
+            colors as follows: ``colors=(SimpleTextDisplay.WHITE, SimpleTextDisplay.RED)``.
         :param None,~displayio.Display display: The display object. Defaults to assuming a built-in
             display. To use with an external display, instantiate the display object and provide it
             here. Defaults to ``board.DISPLAY``.
