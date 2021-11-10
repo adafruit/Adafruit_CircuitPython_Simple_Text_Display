@@ -28,6 +28,13 @@ import displayio
 import terminalio
 from adafruit_display_text import bitmap_label as label
 
+try:
+    from typing import Optional, Union, Tuple, Sequence
+    import fontio
+    import adafruit_bitmap_font
+except ImportError:
+    pass
+
 __version__ = "0.0.0-auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_Simple_Text_Display.git"
 
@@ -58,14 +65,20 @@ class SimpleTextDisplay:
 
     def __init__(
         self,
-        title=None,
-        title_color=(255, 255, 255),
+        title: Optional[str] = None,
+        title_color: Tuple[int, int, int] = (255, 255, 255),
         title_scale: int = 1,
         title_length: int = 0,  # Ignored - will be removed in a future version
         text_scale: int = 1,
-        font=None,
-        colors=None,
-        display=None,
+        font: Optional[
+            Union[
+                fontio.BuiltinFont,
+                adafruit_bitmap_font.bdf.BDF,
+                adafruit_bitmap_font.pcf.PCF,
+            ]
+        ] = None,
+        colors: Optional[Sequence[Tuple[int, int, int]]] = None,
+        display: Optional[displayio.Display] = None,
     ):
         # pylint: disable=too-many-arguments, unused-argument
         """Display lines of text on a display using displayio. Lines of text are created in order as
@@ -168,7 +181,7 @@ class SimpleTextDisplay:
         # Add first line
         self._lines.append(self.add_text_line(color=colors[0]))
 
-    def __getitem__(self, item):
+    def __getitem__(self, item: int) -> label.Label:
         """Fetch the Nth text line Group"""
         if len(self._lines) - 1 < item:
             for i in range(len(self._lines), item + 1):
@@ -177,7 +190,9 @@ class SimpleTextDisplay:
                 )
         return self._lines[item]
 
-    def add_text_line(self, color=(255, 255, 255)):
+    def add_text_line(
+        self, color: Tuple[int, int, int] = (255, 255, 255)
+    ) -> label.Label:
         """Adds a line on the display of the specified color and returns the label object."""
 
         text_label = label.Label(
