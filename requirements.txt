@@ -5,4 +5,3 @@
 
 Adafruit-Blinka
 adafruit-circuitpython-display-text
-sphinx>=4.0.0
