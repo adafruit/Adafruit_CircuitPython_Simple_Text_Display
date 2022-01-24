@@ -3,7 +3,7 @@ Introduction
 
 
 .. image:: https://readthedocs.org/projects/adafruit-circuitpython-simple-text-display/badge/?version=latest
-    :target: https://circuitpython.readthedocs.io/projects/simple-text-display/en/latest/
+    :target: https://docs.circuitpython.org/projects/simple-text-display/en/latest/
     :alt: Documentation Status
 
 
@@ -68,7 +68,7 @@ under the heading "Temperature Data!".
 Documentation
 =============
 
-API documentation for this library can be found on `Read the Docs <https://circuitpython.readthedocs.io/projects/simple-text-display/en/latest/>`_.
+API documentation for this library can be found on `Read the Docs <https://docs.circuitpython.org/projects/simple-text-display/en/latest/>`_.
 
 Contributing
 ============

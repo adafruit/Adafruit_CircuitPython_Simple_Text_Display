@@ -29,10 +29,10 @@ extensions = [
 
 
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3.4", None),
-    "CircuitPython": ("https://circuitpython.readthedocs.io/en/latest/", None),
+    "python": ("https://docs.python.org/3", None),
+    "CircuitPython": ("https://docs.circuitpython.org/en/latest/", None),
     "Adafruit_CircuitPython_Bitmap_Font": (
-        "https://circuitpython.readthedocs.io/projects/bitmap-font/en/latest/",
+        "https://docs.circuitpython.org/projects/bitmap-font/en/latest/",
         None,
     ),
 }
