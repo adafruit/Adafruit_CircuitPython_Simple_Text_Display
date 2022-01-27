@@ -116,13 +116,13 @@ class SimpleTextDisplay:
             temperature_data = SimpleTextDisplay(title="Temperature Data!", title_scale=2)
 
             while True:
-                sensor_data[0].text = "Temperature: {:.2f} degrees C".format(
+                temperature_data[0].text = "Temperature: {:.2f} degrees C".format(
                     microcontroller.cpu.temperature
                 )
-                sensor_data[1].text = "Temperature: {:.2f} degrees F".format(
+                temperature_data[1].text = "Temperature: {:.2f} degrees F".format(
                     (microcontroller.cpu.temperature * (9 / 5) + 32)
                 )
-                sensor_data.show()
+                temperature_data.show()
 
         """
 
