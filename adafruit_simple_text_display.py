@@ -28,7 +28,7 @@ import displayio
 import terminalio
 from adafruit_display_text import bitmap_label as label
 
-__version__ = "0.0.0-auto.0"
+__version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_Simple_Text_Display.git"
 
 

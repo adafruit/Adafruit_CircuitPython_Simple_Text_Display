@@ -12,7 +12,7 @@ requires = [
 [project]
 name = "adafruit-circuitpython-simple-text-display"
 description = "A helper library for displaying lines of text on a microcontroller with a built-in display, or externally connected display."
-version = "0.0.0-auto.0"
+version = "0.0.0+auto.0"
 readme = "README.rst"
 authors = [
     {name = "Adafruit Industries", email = "circuitpython@adafruit.com"}
