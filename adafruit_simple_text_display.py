@@ -24,7 +24,7 @@ Any microcontroller with a built-in display, or an external display.
 """
 
 try:
-    from typing import Optional, Tuple, List
+    from typing import Optional, Tuple
     from fontio import FontProtocol
 except ImportError:
     pass
@@ -174,7 +174,7 @@ class SimpleTextDisplay:
         # Add first line
         self._lines.append(self.add_text_line(color=colors[0]))
 
-    def __getitem__(self, item: int) -> List[label]:
+    def __getitem__(self, item: int) -> label:
         """Fetch the Nth text line Group"""
         if len(self._lines) - 1 < item:
             for i in range(len(self._lines), item + 1):
