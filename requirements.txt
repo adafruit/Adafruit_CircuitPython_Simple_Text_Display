@@ -4,4 +4,3 @@
 
 Adafruit-Blinka
 adafruit-circuitpython-display-text
-adafruit-circuitpython-bitmap-font
