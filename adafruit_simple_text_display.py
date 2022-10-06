@@ -174,7 +174,7 @@ class SimpleTextDisplay:
         # Add first line
         self._lines.append(self.add_text_line(color=colors[0]))
 
-    def __getitem__(self, item: int) -> label:
+    def __getitem__(self, item: int) -> label.Label:
         """Fetch the Nth text line Group"""
         if len(self._lines) - 1 < item:
             for i in range(len(self._lines), item + 1):
@@ -183,7 +183,9 @@ class SimpleTextDisplay:
                 )
         return self._lines[item]
 
-    def add_text_line(self, color: Tuple[int, int, int] = (255, 255, 255)) -> label:
+    def add_text_line(
+        self, color: Tuple[int, int, int] = (255, 255, 255)
+    ) -> label.Label:
         """Adds a line on the display of the specified color and returns the label object."""
 
         text_label = label.Label(
