@@ -23,6 +23,12 @@ Any microcontroller with a built-in display, or an external display.
   https://github.com/adafruit/circuitpython/releases
 """
 
+try:
+    from typing import Optional, Tuple
+    from fontio import FontProtocol
+except ImportError:
+    pass
+
 import board
 import displayio
 import terminalio
@@ -58,15 +64,15 @@ class SimpleTextDisplay:
 
     def __init__(
         self,
-        title=None,
-        title_color=(255, 255, 255),
+        title: Optional[str] = None,
+        title_color: Tuple[int, int, int] = (255, 255, 255),
         title_scale: int = 1,
         title_length: int = 0,  # Ignored - will be removed in a future version
         text_scale: int = 1,
-        font=None,
-        colors=None,
-        display=None,
-    ):
+        font: Optional[FontProtocol] = None,
+        colors: Optional[Tuple[Tuple[int, int, int], ...]] = None,
+        display: Optional[displayio.Display] = None,
+    ) -> None:
         # pylint: disable=too-many-arguments, unused-argument
         """Display lines of text on a display using displayio. Lines of text are created in order as
         shown in the example below. If you skip a number, the line will be shown blank on the
@@ -75,23 +81,23 @@ class SimpleTextDisplay:
         line. Remember, Python begins counting at 0, so the first line on the display is 0 in the
         code. Setup occurs before the loop. For data to be dynamically updated on the display, you
         must include the data call in the loop by using ``.text =``. For example, if setup is saved
-        as ``temperature_data = simple_text_display()`` then ``temperature_data[0].text =
+        as ``temperature_data = SimpleTextDisplay()`` then ``temperature_data[0].text =
         microcontroller.cpu.temperature`` must be inside the ``while True:`` loop for the
         temperature data displayed to update as the values change. You must call `show()` at the
         end of the list for anything to display. See example below for usage.
 
-        :param None,str title: The title displayed above the data. Set ``title="Title text"`` to
+        :param str|None title: The title displayed above the data. Set ``title="Title text"`` to
             provide a title. Defaults to `None`.
-        :param None,Tuple(int,int,int) title_color: The color of the title. Not necessary if no
+        :param Tuple(int, int, int)|None title_color: The color of the title. Not necessary if no
             title is provided. Defaults to white (255, 255, 255).
         :param int title_scale: Scale the size of the title. Not necessary if no title is provided.
             Defaults to 1.
         :param int title_length: DEPRECATED/IGNORED - This will be removed in a future version.
         :param int text_scale: Scale the size of the data lines. Scales the title as well.
             Defaults to 1.
-        :param ~fontio.BuiltinFont,~adafruit_bitmap_font.bdf.BDF,~adafruit_bitmap_font.pcf.PCF font:
-            The font to use to display the title and data. Defaults to `terminalio.FONT`.
-        :param None,Tuple(Tuple(int,int,int),...) colors: A list of colors for the lines of data
+        :param ~FontProtocol|None font: The font to use to display the title and data. Defaults to
+            `terminalio.FONT`.
+        :param Tuple(Tuple(int, int, int), ...)|None colors: A list of colors for the lines of data
             on the display. If you provide a single color, all lines will be that color. Otherwise
             it will cycle through the list you provide if the list is less than the number of lines
             displayed. Default colors are used if ``colors`` is not set. For example, if creating
@@ -101,7 +107,7 @@ class SimpleTextDisplay:
             library. For example, if you import the library as
             ``from adafruit_simple_text_display import SimpleTextDisplay``, you can indicate the
             colors as follows: ``colors=(SimpleTextDisplay.WHITE, SimpleTextDisplay.RED)``.
-        :param None,~displayio.Display display: The display object. Defaults to assuming a built-in
+        :param ~displayio.Display|None display: The display object. Defaults to assuming a built-in
             display. To use with an external display, instantiate the display object and provide it
             here. Defaults to ``board.DISPLAY``.
 
@@ -168,7 +174,7 @@ class SimpleTextDisplay:
         # Add first line
         self._lines.append(self.add_text_line(color=colors[0]))
 
-    def __getitem__(self, item):
+    def __getitem__(self, item: int) -> label.Label:
         """Fetch the Nth text line Group"""
         if len(self._lines) - 1 < item:
             for i in range(len(self._lines), item + 1):
@@ -177,7 +183,9 @@ class SimpleTextDisplay:
                 )
         return self._lines[item]
 
-    def add_text_line(self, color=(255, 255, 255)):
+    def add_text_line(
+        self, color: Tuple[int, int, int] = (255, 255, 255)
+    ) -> label.Label:
         """Adds a line on the display of the specified color and returns the label object."""
 
         text_label = label.Label(
@@ -194,10 +202,10 @@ class SimpleTextDisplay:
 
         return text_label
 
-    def show(self):
+    def show(self) -> None:
         """Call show() to display the data list."""
         self._display.show(self.text_group)
 
-    def show_terminal(self):
+    def show_terminal(self) -> None:
         """Revert to terminalio screen."""
         self._display.show(None)
