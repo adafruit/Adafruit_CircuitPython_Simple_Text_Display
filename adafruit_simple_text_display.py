@@ -204,8 +204,8 @@ class SimpleTextDisplay:
 
     def show(self) -> None:
         """Call show() to display the data list."""
-        self._display.show(self.text_group)
+        self._display.root_group = self.text_group
 
     def show_terminal(self) -> None:
         """Revert to terminalio screen."""
-        self._display.show(None)
+        self._display.root_group = displayio.CIRCUITPYTHON_TERMINAL
