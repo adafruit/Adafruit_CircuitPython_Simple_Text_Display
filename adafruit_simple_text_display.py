@@ -25,6 +25,7 @@ Any microcontroller with a built-in display, or an external display.
 
 try:
     from typing import Optional, Tuple
+
     from fontio import FontProtocol
 except ImportError:
     pass
@@ -73,7 +74,6 @@ class SimpleTextDisplay:
         colors: Optional[Tuple[Tuple[int, int, int], ...]] = None,
         display: Optional[displayio.Display] = None,
     ) -> None:
-        # pylint: disable=too-many-arguments, unused-argument
         """Display lines of text on a display using displayio. Lines of text are created in order as
         shown in the example below. If you skip a number, the line will be shown blank on the
         display, e.g. if you include ``[0]`` and ``[2]``, the second line on the display will be
@@ -178,14 +178,10 @@ class SimpleTextDisplay:
         """Fetch the Nth text line Group"""
         if len(self._lines) - 1 < item:
             for i in range(len(self._lines), item + 1):
-                self._lines.append(
-                    self.add_text_line(color=self._colors[i % len(self._colors)])
-                )
+                self._lines.append(self.add_text_line(color=self._colors[i % len(self._colors)]))
         return self._lines[item]
 
-    def add_text_line(
-        self, color: Tuple[int, int, int] = (255, 255, 255)
-    ) -> label.Label:
+    def add_text_line(self, color: Tuple[int, int, int] = (255, 255, 255)) -> label.Label:
         """Adds a line on the display of the specified color and returns the label object."""
 
         text_label = label.Label(
