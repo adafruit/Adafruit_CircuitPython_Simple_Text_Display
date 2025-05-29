@@ -108,9 +108,9 @@ class SimpleTextDisplay:
             library. For example, if you import the library as
             ``from adafruit_simple_text_display import SimpleTextDisplay``, you can indicate the
             colors as follows: ``colors=(SimpleTextDisplay.WHITE, SimpleTextDisplay.RED)``.
-        :param ~busdisplay.BusDisplay|None display: The display object. Defaults to assuming a built-in
-            display. To use with an external display, instantiate the display object and provide it
-            here. Defaults to ``board.DISPLAY``.
+        :param ~busdisplay.BusDisplay|None display: The display object. Defaults to assuming
+            a built-in display. To use with an external display, instantiate the display
+            object and provide it here. Defaults to ``board.DISPLAY``.
 
         This example displays two lines with temperature data in C and F on the display.
         Remember to call `show()` after the list to update the display.
