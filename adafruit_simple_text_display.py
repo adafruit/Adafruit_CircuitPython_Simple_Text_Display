@@ -26,6 +26,7 @@ Any microcontroller with a built-in display, or an external display.
 try:
     from typing import Optional, Tuple
 
+    import busdisplay
     from fontio import FontProtocol
 except ImportError:
     pass
@@ -72,7 +73,7 @@ class SimpleTextDisplay:
         text_scale: int = 1,
         font: Optional[FontProtocol] = None,
         colors: Optional[Tuple[Tuple[int, int, int], ...]] = None,
-        display: Optional[displayio.Display] = None,
+        display: Optional[busdisplay.BusDisplay] = None,
     ) -> None:
         """Display lines of text on a display using displayio. Lines of text are created in order as
         shown in the example below. If you skip a number, the line will be shown blank on the
@@ -107,7 +108,7 @@ class SimpleTextDisplay:
             library. For example, if you import the library as
             ``from adafruit_simple_text_display import SimpleTextDisplay``, you can indicate the
             colors as follows: ``colors=(SimpleTextDisplay.WHITE, SimpleTextDisplay.RED)``.
-        :param ~displayio.Display|None display: The display object. Defaults to assuming a built-in
+        :param ~busdisplay.BusDisplay|None display: The display object. Defaults to assuming a built-in
             display. To use with an external display, instantiate the display object and provide it
             here. Defaults to ``board.DISPLAY``.
 
